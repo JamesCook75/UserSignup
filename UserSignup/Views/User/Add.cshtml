@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+    string emailValue = "";
+    string nameValue = "";
+    if (ViewBag.user != null)
+    {
+        emailValue = ViewBag.user.Email;
+        nameValue = ViewBag.user.Username;
+    }
+    if (ViewBag.username != null)
+    {
+
+        nameValue = ViewBag.username;
+    }
+    if (ViewBag.email != null)
+    {
+
+        emailValue = ViewBag.email;
+    }
+
+}
+
+<h2>Add</h2>
+
+<div class="alert-danger" >@ViewBag.message</div>
+
+<form method="post">
+    <div>
+        <label for="name">User Name</label>
+        <input type="text" name="userName" id="name" value="@nameValue" />
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" value="@emailValue"/>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+    </div>
+    <div><label for="verify">Verify Password</label>
+    <input type="password" name="verify" id="verify" /></div>
+     
+    <input type="submit" />
+</form>
+

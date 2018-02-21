@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>@ViewBag.message</h3>
+
+<h2>Index</h2>
+
+@{ 
+    if (ViewBag.users != null)
+    {
+        foreach (User user in ViewBag.users)
+        {
+            <div><a asp-controller="User" asp-action="Detail" asp-route-userId="@user.UserId"><h2>@user.Username</h2></a></div>
+
+        }
+
+    }
+
+}
