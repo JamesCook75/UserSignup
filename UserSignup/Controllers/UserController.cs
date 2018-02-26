@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UserSignup.Models;
+using UserSignup.ViewModels;
 
 namespace UserSignup.Controllers
 {
@@ -17,46 +18,27 @@ namespace UserSignup.Controllers
 
         public IActionResult Add()
         {
-            return View();
+            AddUserViewModel addUserViewModel = new AddUserViewModel();
+            return View(addUserViewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(User user, string verify)
+        public IActionResult Add(AddUserViewModel addUserViewModel)
         {
-            bool notAlpha = (user.Username.Any(x => !char.IsLetter(x)));
-
-            if (user.Username != null && !notAlpha && user.Username.Length >= 5 && user.Username.Length <= 15)
+            if (ModelState.IsValid)
             {
-                if (user.Email != null)
-                {
-                    if (verify == user.Password)
-                    {
-                        UserData.Add(user);
-                        ViewBag.message = "Welcome, " + user.Username;
-                        ViewBag.users = UserData.GetAll();
-                        return View("Index");
-                    }
-                    else
-                    {
-                        ViewBag.message = "Passwords do not match";
-                        ViewBag.user = user;
-                        return View();
-                    }
-                }
-                else
-                {
-                    ViewBag.message = "Email cannot be empty";
-                    ViewBag.username = user.Username;
-                    return View();
-                }
-            }
-            else
-            {
-                ViewBag.message = "Username must be between 5 and 15 letters";
-                if (user.Email != null) { ViewBag.email = user.Email; }
-                return View();
+                User newUser = addUserViewModel.NewUser(
+                    addUserViewModel.Username,
+                    addUserViewModel.Email,
+                    addUserViewModel.Password
+                    );
 
+                UserData.Add(newUser);
+
+                return Redirect("/");
             }
+
+            return View(addUserViewModel);
         }
 
         public IActionResult Detail(int userId)

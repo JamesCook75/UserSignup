@@ -43,7 +43,7 @@ namespace UserSignup
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=User/add}/{action=Index}/{id?}");
+                    template: "{controller=User}/{action=Index}/{id?}");
             });
         }
     }

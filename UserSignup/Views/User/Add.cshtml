@@ -1,46 +1,32 @@
 ﻿
-@{
-    ViewData["Title"] = "Add";
-    string emailValue = "";
-    string nameValue = "";
-    if (ViewBag.user != null)
-    {
-        emailValue = ViewBag.user.Email;
-        nameValue = ViewBag.user.Username;
-    }
-    if (ViewBag.username != null)
-    {
-
-        nameValue = ViewBag.username;
-    }
-    if (ViewBag.email != null)
-    {
-
-        emailValue = ViewBag.email;
-    }
-
-}
+@model UserSignup.ViewModels.AddUserViewModel
 
 <h2>Add</h2>
 
-<div class="alert-danger" >@ViewBag.message</div>
+<form asp-controller="User" asp-action="Add" method="post">
 
-<form method="post">
-    <div>
-        <label for="name">User Name</label>
-        <input type="text" name="userName" id="name" value="@nameValue" />
+    <div class="form-group">
+        <label asp-for="Username"></label>
+        <input class="form-control" asp-for="Username" />
+        <span asp-validation-for="Username"></span>
     </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" value="@emailValue"/>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input class="form-control" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" />
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input class="form-control" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
     </div>
-    <div><label for="verify">Verify Password</label>
-    <input type="password" name="verify" id="verify" /></div>
-     
-    <input type="submit" />
+    <div class="form-group">
+        <label asp-for="Verify"></label>
+        <input class="form-control" asp-for="Verify" />
+        <span asp-validation-for="Verify"></span>
+    </div>
+
+    <input type="submit" value="Add User" />
+
 </form>
 
